@@ -1,16 +1,22 @@
 public class SolarSystemObject
 {
-   private double distance, angle, diameter, cord, cora;
-   private String colour;
+   private double distance, angle, diameter, cord, cora, speed;
+   private String colour, name;
  
-   public SolarSystemObject(double d, double a, double di, String c)
+   public SolarSystemObject(String n, double d, double a, double di, String c)
    {
+       name = n;
        distance = d;
        angle = a;
        diameter = di;
        colour = c;
    }
- 
+   
+   public String getName()
+   {
+        return name;
+   }
+
    public double getDistance()
    {
        return distance;
@@ -40,7 +46,12 @@ public class SolarSystemObject
    {
        return cora;
    }
- 
+
+   public double getSpeed()
+   {
+       return speed;
+   }
+
    public void move()
    {
        angle = angle + 0.4;

@@ -1,14 +1,14 @@
 public class Planets extends SolarSystemObject
 {
     private double angle, distance;
-    int pNo;
+    double speed;
  
-    public Planets(double d, double a, double di, String c, int no)
+    public Planets(String n, double d, double a, double di, String c, double sp)
     {
-        super(d, a, di, c);
+        super(n, d, a, di, c);
         angle = a;
         distance = d;
-        pNo = no;
+        speed = sp;
     }
 
     public double getAngle()
@@ -16,9 +16,14 @@ public class Planets extends SolarSystemObject
         return angle;
     }
 
+    public double getSpeed()
+    {
+        return speed;
+    }
+
     public void move()
     {
-        angle = angle + (pNo*0.2);
+        angle = angle + (speed*0.2);
     }
 
 }

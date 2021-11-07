@@ -2,13 +2,13 @@ public class Moons extends Planets
 {
     private double cord, cora, angle; 
 
-    public Moons(double d, double a, double di, String c, int no, double cd, double ca)
+    public Moons(String n, double d, double a, double di, String c, double sp, double cd, double ca)
     {
-        super(d, a, di, c, no);
+        super(n, d, a, di, c, sp);
         angle = a;
         cord = cd;
         cora = ca;
-        pNo = no;
+        speed = sp;
     }
 
     public double getCORD()
@@ -29,6 +29,6 @@ public class Moons extends Planets
     public void move()
     {
         angle = angle + 3;
-        cora = cora + (pNo*0.2);
+        cora = cora + (speed*0.2);
     }
 }
