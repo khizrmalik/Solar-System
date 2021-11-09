@@ -1,6 +1,9 @@
 import java.util.Random;
 import java.util.ArrayList;
 
+/** A class to implement the gui and take in inputs from the user to insert solar objects into the solar system
+ * @author Khizr Malik
+ */
 public class SolarMain implements SolarSystemController
 {
     Random rn = new Random();
@@ -20,6 +23,15 @@ public class SolarMain implements SolarSystemController
     int location, rotation;
     double spd, cord, cora;
 
+    /**
+     * A main constructor that 
+     * displays the gui
+     * Randomly scatters solarobjects as stars
+     * Contains a while loop that is continuous and inserts any solarobject inputted by the user in the gui
+     * Inserts the Sun which is made with multiple solar objects to make it look more realistic
+     * A method from the SolarSystem class to refresh the display after every loop
+     */
+
     public SolarMain()
     {
         gui.addSolarSystemController(this);    
@@ -30,35 +42,6 @@ public class SolarMain implements SolarSystemController
             rotation = rn.nextInt(360) + 1;
             solarObjects.add(new SolarSystemObject("Star", location, rotation, 2, "WHITE")); //Stars
         }
-
-        // for (int j = 500; j < 700; j++)
-        // {
-        //     location = rn.nextInt(190 -170 + 1) + 170;
-        //     rotation = rn.nextInt(360) + 1;
-        //     solarObjects[j] = new SolarSystemObject(location, rotation, 2, "#A9A9A9"); //Asteroids
-        // }
-
-        // solarObjects[700] = new Planets(50, 0, 10, "#964b00", 1); //Mercury
-        // solarObjects[701] = new Planets(90, 175, 8, "#8B8000", 2); //Venus
-        // solarObjects[702] = new Planets(115, 125, 12, "#436380", 3); //Earth
-        // solarObjects[703] = new Planets(150, 25, 12, "#BC2732", 4); //Mars
-        // solarObjects[704] = new Planets(225, 150, 20, "#e36e4b", 5); //Jupiter
-        // solarObjects[705] = new Planets(300, 50, 16, "#C2B280", 6); //Saturn
-        // solarObjects[706] = new Planets(335, 100, 10, "#30D5C8", 7); //Uranus
-        // solarObjects[707] = new Planets(350, 75, 12, "#00008b", 8); //Neptune
-
-        // moons[0] = new Moons(13, 0, 5, "GREY", 3, 115, 125); //Earths Moon
-        // moons[1] = new Moons(23, 45, 5, "GREY", 5, 225, 150); //Jupiter Moon 1
-        // moons[2] = new Moons(23, 90, 5, "GREY", 5, 225, 150); //Jupiter Moon 2
-        // moons[3] = new Moons(23, 165, 5, "GREY", 5, 225, 150); //Jupiter Moon 3
-        // moons[4] = new Moons(23, 245, 5, "GREY", 5, 225, 150); //Jupiter Moon 4
-
-        // for (int j = 5; j < moons.length; j++)
-        // {
-        //     location = rn.nextInt(25 -20 + 1) + 20;
-        //     rotation = rn.nextInt(360) + 1;
-        //     moons[j] = new Moons(20, rotation, 2, "#A9A9A9", 6, 300, 50); //Saturns ring
-        // }
         
         while(true) //Loop to initiate the planets orbitting of the sun
         {
@@ -73,12 +56,6 @@ public class SolarMain implements SolarSystemController
                     solarObjects.get(i).move();
             }
 
-            // for (int i = 0; i < adderM; i++)
-            // {
-            //     mW.drawSolarObjectAbout(moons[i].getDistance(), moons[i].getAngle(), moons[i].getDiameter(), moons[i].getColour(), moons[i].getCORD(), moons[i].getCORA());
-            //     moons[i].move();
-            // }
-
             mW.drawSolarObject(sun.getDistance(), sun.getAngle(), sun.getDiameter(), sun.getColour());
             mW.drawSolarObject(sun2.getDistance(), sun2.getAngle(), sun2.getDiameter(), sun2.getColour());
             mW.drawSolarObject(sun3.getDistance(), sun3.getAngle(), sun3.getDiameter(), sun3.getColour());
@@ -91,12 +68,31 @@ public class SolarMain implements SolarSystemController
 
     }
 
+    /**
+     * An add method that inserts solar objects (orbitting the sun) with the parameters provided by the user
+     * @param name name of solarobject
+     * @param orbitalDistance Distance of solar object from sun
+     * @param intialAngle Initial angle of the solar object
+     * @param size size of the object
+     * @param speed speed of orbitting
+     * @param colour colour of the object
+     */
     @Override
     public void add(String name, double orbitalDistance, double initialAngle, double size, double speed, String colour) 
     {
         solarObjects.add(new Planets(name, orbitalDistance, initialAngle, size, colour, speed));
     }
 
+    /**
+     * An add method that inserts solar objects (orbitting another solar object) with the parameters provided by the user
+     * @param name name of the solar object
+     * @param orbitalDistance Distance of solar object from other
+     * @param intialAngle Initial angle of object
+     * @param size size of object
+     * @param speed speed of orbitting
+     * @param colour colour of object
+     * @param parentName name of the object that this one is orbitting
+     */
     @Override
     public void add(String name, double orbitalDistance, double initialAngle, double size, double speed, String colour, String parentName) 
     {
@@ -112,6 +108,10 @@ public class SolarMain implements SolarSystemController
         solarObjects.add(new Moons(name, orbitalDistance, initialAngle, size, colour, spd, cord, cora, parentName));
     }
 
+    /**
+     * An add method that removes any solar objects with the parameters provided by the user
+     * @param name name of the solar object that needs to be removed
+     */
     @Override
     public void remove(String name) 
     {
