@@ -1,4 +1,5 @@
 import java.util.Random;
+import java.util.ArrayList;
 
 public class SolarMain implements SolarSystemController
 {
@@ -14,13 +15,10 @@ public class SolarMain implements SolarSystemController
     SolarSystemObject sun5 = new SolarSystemObject("Sun",0, 0, 20, "#FC9601");
     SolarSystemObject sun6 = new SolarSystemObject("Sun",0, 0, 10, "#FFC000");
 
-    SolarSystemObject[] solarObjects = new SolarSystemObject[708];
-    Planets[] moons = new Moons[100];
+    ArrayList<SolarSystemObject> solarObjects = new ArrayList<>();
 
-    int location, rotation, adderM;
-    int adder = 500;
+    int location, rotation;
     double spd, cord, cora;
-    String remName;
 
     public SolarMain()
     {
@@ -30,7 +28,7 @@ public class SolarMain implements SolarSystemController
         {
             location = rn.nextInt(750) + 1;
             rotation = rn.nextInt(360) + 1;
-            solarObjects[j] = new SolarSystemObject("Star", location, rotation, 2, "WHITE"); //Stars
+            solarObjects.add(new SolarSystemObject("Star", location, rotation, 2, "WHITE")); //Stars
         }
 
         // for (int j = 500; j < 700; j++)
@@ -64,18 +62,22 @@ public class SolarMain implements SolarSystemController
         
         while(true) //Loop to initiate the planets orbitting of the sun
         {
-            for (int i = 0; i < adder; i++)
+            for (int i = 0; i < solarObjects.size(); i++)
             {
-                mW.drawSolarObject(solarObjects[i].getDistance(), solarObjects[i].getAngle(), solarObjects[i].getDiameter(), solarObjects[i].getColour());
-                if (!(solarObjects[i].getName().equals("Star"))) //if its a star than don't move
-                    solarObjects[i].move();
+                if (!(solarObjects.get(i) instanceof Moons))
+                    mW.drawSolarObject(solarObjects.get(i).getDistance(), solarObjects.get(i).getAngle(), solarObjects.get(i).getDiameter(), solarObjects.get(i).getColour());
+                else
+                    mW.drawSolarObjectAbout(solarObjects.get(i).getDistance(), solarObjects.get(i).getAngle(), solarObjects.get(i).getDiameter(), solarObjects.get(i).getColour(), solarObjects.get(i).getCORD(), solarObjects.get(i).getCORA());
+                
+                if (!(solarObjects.get(i).getName().equals("Star"))) //if its a star than don't move
+                    solarObjects.get(i).move();
             }
 
-            for (int i = 0; i < adderM; i++)
-            {
-                mW.drawSolarObjectAbout(moons[i].getDistance(), moons[i].getAngle(), moons[i].getDiameter(), moons[i].getColour(), moons[i].getCORD(), moons[i].getCORA());
-                moons[i].move();
-            }
+            // for (int i = 0; i < adderM; i++)
+            // {
+            //     mW.drawSolarObjectAbout(moons[i].getDistance(), moons[i].getAngle(), moons[i].getDiameter(), moons[i].getColour(), moons[i].getCORD(), moons[i].getCORA());
+            //     moons[i].move();
+            // }
 
             mW.drawSolarObject(sun.getDistance(), sun.getAngle(), sun.getDiameter(), sun.getColour());
             mW.drawSolarObject(sun2.getDistance(), sun2.getAngle(), sun2.getDiameter(), sun2.getColour());
@@ -92,29 +94,33 @@ public class SolarMain implements SolarSystemController
     @Override
     public void add(String name, double orbitalDistance, double initialAngle, double size, double speed, String colour) 
     {
-        solarObjects[adder] = new Planets(name, orbitalDistance, initialAngle, size, colour, speed);
-        adder++;
+        solarObjects.add(new Planets(name, orbitalDistance, initialAngle, size, colour, speed));
     }
 
     @Override
     public void add(String name, double orbitalDistance, double initialAngle, double size, double speed, String colour, String parentName) 
     {
-        for (int i = 0; i < adder; i++)
+        for (int i = 0; i < solarObjects.size(); i++)
         {
-            if (solarObjects[i].getName().equals(parentName))
+            if (solarObjects.get(i).getName().equals(parentName))
             {
-                cord = solarObjects[i].getDistance();
-                cora = solarObjects[i].getAngle();
-                spd = solarObjects[i].getSpeed();
+                cord = solarObjects.get(i).getDistance();
+                cora = solarObjects.get(i).getAngle();
+                spd = solarObjects.get(i).getSpeed();
             }
         }
-        moons[adderM] = new Moons(name, orbitalDistance, initialAngle, size, colour, spd, cord, cora);
-        adderM++;
+        solarObjects.add(new Moons(name, orbitalDistance, initialAngle, size, colour, spd, cord, cora, parentName));
     }
 
     @Override
     public void remove(String name) 
     {
-        remName = name; 
+        for (int i = 0; i < solarObjects.size(); i++)
+        {
+            if (solarObjects.get(i).getName().equals(name) || ((solarObjects.get(i) instanceof Moons) && solarObjects.get(i).getPN().equals(name)))
+            {
+                solarObjects.remove(i);
+            }
+        }
     }
 }

@@ -1,7 +1,7 @@
 public class SolarSystemObject
 {
    private double distance, angle, diameter, cord, cora, speed;
-   private String colour, name;
+   private String colour, name, parentName;
  
    public SolarSystemObject(String n, double d, double a, double di, String c)
    {
@@ -50,6 +50,11 @@ public class SolarSystemObject
    public double getSpeed()
    {
        return speed;
+   }
+
+   public String getPN()
+   {
+       return parentName;
    }
 
    public void move()
