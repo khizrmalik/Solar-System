@@ -34,13 +34,42 @@ public class SolarMain implements SolarSystemController
 
     public SolarMain()
     {
-        gui.addSolarSystemController(this);    
+        gui.addSolarSystemController(this);  
         
+        for (int j = 0; j < 250; j++)
+        {
+            int location = rn.nextInt(190 -170 + 1) + 170;
+            int rotation = rn.nextInt(360) + 1;
+            solarObjects.add(new SolarSystemObject("asteroids", location, rotation, 2, "#A9A9A9"));
+        }
+
+        solarObjects.add(new Planets("Mercury", 50, 0, 10, "#964b00", 1)); //Mercury
+        solarObjects.add(new Planets("Venus", 90, 175, 8, "#8B8000", 2)); //Venus
+        solarObjects.add(new Planets("Earth", 115, 125, 12, "#436380", 3)); //Earth
+        solarObjects.add(new Planets("Mars", 150, 25, 12, "#BC2732", 4)); //Mars
+        solarObjects.add(new Planets("Jupiter", 225, 150, 20, "#e36e4b", 5)); //Jupiter
+        solarObjects.add(new Planets("Saturn", 300, 50, 16, "#C2B280", 6)); //Saturn
+        solarObjects.add(new Planets("Uranus", 335, 100, 10, "#30D5C8", 7)); //Uranus
+        solarObjects.add(new Planets("Neptune", 350, 75, 12, "#00008b", 8)); //Neptune
+            
         for (int j = 0; j < 500; j++)
         {
             location = rn.nextInt(750) + 1;
             rotation = rn.nextInt(360) + 1;
             solarObjects.add(new SolarSystemObject("Star", location, rotation, 2, "WHITE")); //Stars
+        }
+
+        solarObjects.add(new Moons("Earth Moon", 13, 0, 5, "GREY", 3, 115, 125, "Earth")); //Earths Moon
+        solarObjects.add(new Moons("Jupiter Moon1", 23, 45, 5, "GREY", 5, 225, 150, "Jupiter")); //Jupiter Moon 1
+        solarObjects.add(new Moons("Jupiter Moon2", 23, 90, 5, "GREY", 5, 225, 150, "Jupiter")); //Jupiter Moon 2
+        solarObjects.add(new Moons("Jupiter Moon3", 23, 165, 5, "GREY", 5, 225, 150, "Jupiter")); //Jupiter Moon 3
+        solarObjects.add(new Moons("Jupiter Moon 4", 23, 245, 5, "GREY", 5, 225, 150, "Jupiter")); //Jupiter Moon 4
+
+        for (int j = 5; j < 100; j++)
+        {
+            int location = rn.nextInt(25 -20 + 1) + 20;
+            int rotation = rn.nextInt(360) + 1;
+            solarObjects.add(new Moons("Saturn", 20, rotation, 2, "#A9A9A9", 6, 300, 50, "Saturn"));
         }
         
         while(true) //Loop to initiate the planets orbitting of the sun
